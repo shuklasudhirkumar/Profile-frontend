@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
+import api from "../services/api";
 
 const Hero = ({ setActiveSection }) => {
+  const [about, setAbout] = useState({});
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
@@ -9,6 +11,19 @@ const Hero = ({ setActiveSection }) => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    api
+      .get("/about")
+      .then((res) => {
+        setAbout(res.data[0]);
+      })
+      .catch((err) => {
+        console.error("Error fetching projects:", err);
+      });
+  }, []);
+
+  console.log(about);
 
   return (
     <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -56,8 +71,8 @@ const Hero = ({ setActiveSection }) => {
                 <div className="text-6xl md:text-8xl font-bold text-primary/20">
                   <img
                     src={
-                      "https://ik.imagekit.io/storybird/images/9d53e2ee-4f54-47ee-9e39-4a6caadf0ef4/0_357297611.webp?tr=q-80" ||
-                      "/placeholder.svg"
+                      about.imgUrl ||
+                      "https://ik.imagekit.io/storybird/images/9d53e2ee-4f54-47ee-9e39-4a6caadf0ef4/0_357297611.webp?tr=q-80"
                     }
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
