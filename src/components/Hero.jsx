@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import api from "../services/api";
 
 const Hero = ({ setActiveSection }) => {
-  const [about, setAbout] = useState({});
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
@@ -12,6 +11,7 @@ const Hero = ({ setActiveSection }) => {
     }
   };
 
+  const [about, setAbout] = useState({});
   useEffect(() => {
     api
       .get("/about")

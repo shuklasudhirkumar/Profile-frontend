@@ -1,29 +1,19 @@
-import React, { useState } from "react";
-import { Mail, Linkedin, Github, Twitter } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Mail, Linkedin, Github, Twitter, PhoneCallIcon } from "lucide-react";
+import api from "../services/api";
 
 const Contact = () => {
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   email: "",
-  //   message: "",
-  // });
-  // const [submitted, setSubmitted] = useState(false);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Form submitted:", formData);
-  //   setSubmitted(true);
-  //   setFormData({ name: "", email: "", message: "" });
-  //   setTimeout(() => setSubmitted(false), 3000);
-  // };
+  const [about, setAbout] = useState({});
+  useEffect(() => {
+    api
+      .get("/about")
+      .then((res) => {
+        setAbout(res.data[0]);
+      })
+      .catch((err) => {
+        console.error("Error fetching projects:", err);
+      });
+  }, []);
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-card/50">
@@ -77,78 +67,37 @@ const Contact = () => {
                 <Github className="w-5 h-5" />
                 GitHub
               </a>
-              {/* <a
-                href="https://twitter.com"
+              <a
+                href="tel: +91 8624091241"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter className="w-5 h-5" />
-                Twitter
-              </a> */}
+                <PhoneCallIcon className="w-5 h-5" />
+                +91 8624091241
+              </a>
             </div>
           </div>
 
           {/* Contact Form */}
-          {/* <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-2 gap-6 text-center bg-background border border-border rounded-2xl p-8 shadow-sm">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors"
-                placeholder="Your name"
-              />
+              <h4 className="text-3xl font-bold text-primary">1+</h4>
+              <p className="text-muted-foreground">Years Experience</p>
             </div>
-
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors"
-                placeholder="your@email.com"
-              />
+              <h4 className="text-3xl font-bold text-primary">5+</h4>
+              <p className="text-muted-foreground">Projects Completed</p>
             </div>
-
             <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium mb-2"
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="5"
-                className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors resize-none"
-                placeholder="Your message..."
-              />
+              <h4 className="text-3xl font-bold text-primary">10+</h4>
+              <p className="text-muted-foreground">Technologies</p>
             </div>
-
-            <button
-              type="submit"
-              className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-            >
-              {submitted ? "✓ Message Sent!" : "Send Message"}
-            </button>
-          </form> */}
+            <div>
+              <h4 className="text-3xl font-bold text-primary">100%</h4>
+              <p className="text-muted-foreground">Client Satisfaction</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
